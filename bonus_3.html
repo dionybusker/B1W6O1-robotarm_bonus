@@ -7,13 +7,87 @@
             // Robotarm bibliotheek inladen
             var canvas = document.getElementById("canvas");
             var robotArm = new RobotArm(canvas);
-            robotArm.speed = 500;
+            robotArm.speed = 1000;
             
             // Het level inladen
             robotArm.loadLevel("exercise 11");
             
             // Jou instructies volgen hier
-            
+            var red = 0;
+            var blue = 0;
+            var green = 0;
+            var white = 0;
+
+            // er wordt gekeken hoeveel blokken er van iedere kleur is
+            for (var column = 1; column <= 9; column++) {
+                robotArm.moveRight();
+                robotArm.grab();
+                if (robotArm.scan() == "red") {
+                    red = red + 1;
+                } else if (robotArm.scan() == "blue") {
+                    blue = blue + 1;
+                } else if (robotArm.scan() == "green") {
+                    green = green + 1;
+                } else if (robotArm.scan() == "white") {
+                    white = white + 1;
+                }
+                robotArm.drop();
+            }
+
+            // de meeste blokken worden helemaal links geplaatst (vanaf rechts geteld)
+            for (var column = 9; column >= 1; column--) {
+                robotArm.grab();
+                if (red >= blue && red >= green && red >= white) { // check voor meeste rood
+                    if (robotArm.scan() == "red") {
+                        for (var left = 1; left <= column; left++) {
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var right = 1; right <= left - 1; right++) {
+                            robotArm.moveRight();
+                        }
+                    } else {
+                        robotArm.drop();
+                    }
+                } else if (blue >= red && blue >= green && blue >= white) { // check voor meeste blauw
+                    if (robotArm.scan() == "blue") {
+                        for (var left = 1; left <= column; left++) {
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var right = 1; right <= left - 1; right++) {
+                            robotArm.moveRight();
+                        }
+                    } else {
+                        robotArm.drop();
+                    }
+                } else if (green >= red && green >= blue && green >= white) { // check voor meeste groen
+                    if (robotArm.scan() == "green") {
+                        for (var left = 1; left <= column; left++) {
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var right = 1; right <= left - 1; right++) {
+                            robotArm.moveRight();
+                        }
+                    } else {
+                        robotArm.drop();
+                    }
+                } else if (white >= red && white >= blue && white >= green) { // check voor meeste wit
+                    if (robotArm.scan() == "white") {
+                        for (var left = 1; left <= column; left++) {
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var right = 1; right <= left - 1; right++) {
+                            robotArm.moveRight();
+                        }
+                    } else {
+                        robotArm.drop();
+                    }
+                }
+                robotArm.moveLeft();
+            }
             
             // De door jou opgegeven instructies uitvoeren
             robotArm.run();

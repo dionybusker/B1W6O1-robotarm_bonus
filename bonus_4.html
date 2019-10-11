@@ -7,13 +7,71 @@
             // Robotarm bibliotheek inladen
             var canvas = document.getElementById("canvas");
             var robotArm = new RobotArm(canvas);
-            robotArm.speed = 500;
+            robotArm.speed = 3000;
             
             // Het level inladen
             robotArm.loadLevel("exercise 9");
             
             // Jou instructies volgen hier
-            
+            for (var column = 1; column <= 4; column++) { // for loop voor het verplaatsen van alle stapels
+                for (var block = 1; block <= column; block++) { // for loop voor het verplaatsen van alle blokken
+                    robotArm.grab();
+                    for (var right = 1; right <= 5; right++) { // for loop voor het verplaatsen van 1 blok
+                        robotArm.moveRight();
+                    }
+                    robotArm.drop();
+                    for (var left = 1; left <= 5; left++) { // for loop voor het bewegen naar links
+                        robotArm.moveLeft();
+                    }
+                }
+                robotArm.moveRight();
+            }
+
+            for (var column = 4; column >= 1; column--) { // for loop voor het verplaatsen van alle stapels
+                for (var block = 5; block >= column; block--) { // for loop voor het verplaatsen van alle blokken
+                    if (robotArm.scan() == "red") {
+                        robotArm.grab();
+                        for (var left = 5; left >= 1; left--) { // for loop voor het verplaatsen van 1 blok
+                            robotArm.moveLeft();
+                        }
+                        robotArm.drop();
+                        for (var right = 5; right >= 1; right--) { // for loop voor het bewegen naar links
+                            robotArm.moveRight();
+                        }
+                    } else {
+                    robotArm.drop();
+                    }
+                    robotArm.moveRight();
+                }
+            }
+
+            // for (var column = 4; column >= 1; column--) { // for loop voor het verplaatsen van alle stapels
+            //     for (var block = 5; block >= column; block--) { // for loop voor het verplaatsen van alle blokken
+            //         robotArm.grab();
+            //         for (var left = 5; left >= 1; left--) { // for loop voor het verplaatsen van 1 blok
+            //             robotArm.moveLeft();
+            //         }
+            //         robotArm.drop();
+            //         for (var right = 5; right >= 1; right--) { // for loop voor het bewegen naar links
+            //             robotArm.moveRight();
+            //         }
+            //     }
+            //     robotArm.moveRight();
+            // }
+
+            // for (var column = 9; column >= 6; column--) {
+            //     for (var block = 9; block >= column; block--) {
+            //         robotArm.grab();
+            //         for (var left = 6; left >= 1; left--) {
+            //             robotArm.moveLeft();
+            //         }
+            //         robotArm.drop();
+            //         for (var right = 6; right >= 1; right--) {
+            //             robotArm.moveRight();
+            //         }
+            //     }
+            //     robotArm.moveLeft();
+            // }
             
             // De door jou opgegeven instructies uitvoeren
             robotArm.run();
