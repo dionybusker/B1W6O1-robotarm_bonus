@@ -1,0 +1,60 @@
+<!-- soort zoekt soort -->
+<html>
+    <body>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <script src="js/robot-arm.js"></script>
+        <script>
+            // Robotarm bibliotheek inladen
+            var canvas = document.getElementById("canvas");
+            var robotArm = new RobotArm(canvas);
+            robotArm.speed = 500;
+            
+            // Het level inladen
+            robotArm.loadLevel("exercise 6");
+            
+            // Jou instructies volgen hier
+            for (column = 1; column <= 8; column++) {
+                robotArm.grab();
+                if (robotArm.scan() == "red") {
+                    for (left = 1; left <= column - 1; left++) {
+                        robotArm.moveLeft();
+                    }
+                    robotArm.drop();
+                    for (right = 1; right <= column - 1; right++) {
+                        robotArm.moveRight();
+                    }
+                } else if (robotArm.scan() == "blue") {
+                    for (left = 2; left <= column - 1; left++) {
+                        robotArm.moveLeft();
+                    }
+                    robotArm.drop();
+                    for (right = 2; right <= column - 1; right++) {
+                        robotArm.moveRight();
+                    }
+                } else if (robotArm.scan() == "white") {
+                    for (left = 3; left <= column - 1; left++) {
+                        robotArm.moveLeft();
+                    }
+                    robotArm.drop();
+                    for (right = 3; right <= column - 1; right++) {
+                        robotArm.moveRight();
+                    }
+                } else if (robotArm.scan() == "green") {
+                    for (left = 4; left <= column - 1; left++) {
+                        robotArm.moveLeft();
+                    }
+                    robotArm.drop();
+                    for (right = 4; right <= column - 1; right++) {
+                        robotArm.moveRight();
+                    }
+                } else {
+                    robotArm.drop();
+                }
+                robotArm.moveRight();
+            }
+            
+            // De door jou opgegeven instructies uitvoeren
+            robotArm.run();
+        </script>
+    </body>
+</html>
