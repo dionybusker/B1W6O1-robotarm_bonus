@@ -27,23 +27,44 @@
                 robotArm.moveRight();
             }
 
-            for (var column = 4; column >= 1; column--) { // for loop voor het verplaatsen van alle stapels
-                for (var block = 5; block >= column; block--) { // for loop voor het verplaatsen van alle blokken
-                    if (robotArm.scan() == "red") {
-                        robotArm.grab();
-                        for (var left = 5; left >= 1; left--) { // for loop voor het verplaatsen van 1 blok
+            for (var right = 4; right <= 7; right++) {
+                robotArm.moveRight();
+            }
+
+            for (var row = 1; row <= 8; row++) {
+                for (var column = 4; column >= 1; column--) {
+                    robotArm.grab();
+                    for (left = 4; left >= 1; left--) {
+                        if (robotArm.scan() == "red") {
                             robotArm.moveLeft();
                         }
-                        robotArm.drop();
-                        for (var right = 5; right >= 1; right--) { // for loop voor het bewegen naar links
-                            robotArm.moveRight();
-                        }
-                    } else {
-                    robotArm.drop();
                     }
+                }
+                robotArm.drop();
+                for (right = 1; right <= 4; right++) {
                     robotArm.moveRight();
                 }
             }
+
+
+
+            // for (var column = 4; column >= 1; column--) { // for loop voor het verplaatsen van alle stapels
+            //     for (var block = 5; block >= column; block--) { // for loop voor het verplaatsen van alle blokken
+            //         if (robotArm.scan() == "red") {
+            //             robotArm.grab();
+            //             for (var left = 5; left >= 1; left--) { // for loop voor het verplaatsen van 1 blok
+            //                 robotArm.moveLeft();
+            //             }
+            //             robotArm.drop();
+            //             for (var right = 5; right >= 1; right--) { // for loop voor het bewegen naar links
+            //                 robotArm.moveRight();
+            //             }
+            //         } else {
+            //         robotArm.drop();
+            //         }
+            //         robotArm.moveRight();
+            //     }
+            // }
 
             // for (var column = 4; column >= 1; column--) { // for loop voor het verplaatsen van alle stapels
             //     for (var block = 5; block >= column; block--) { // for loop voor het verplaatsen van alle blokken
